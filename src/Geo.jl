@@ -4,6 +4,7 @@ import SymPy
 export
     Point2D,
     Point4D,
+    Point4To2D,
     Distance2D,
     Geometry,
     Length2XY,

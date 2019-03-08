@@ -9,10 +9,11 @@ function LineArc(line::Geometry, arc::Geometry)
     Eq = (x - Center.x)^2 + (y - Center.y)^2 - (1/arc.Sp.cur)^2
     Roots = SymPy.solve(Eq)
     #Ips = Array{Tuple{Point2D{Float64},Float64, Float64}, 1}()
-    if !isa(SymPy.N(Roots[1]), Real)  # line and circle do not Intersect
+    #if !isa(SymPy.N(Roots[1]), Real)  # line and circle do not Intersect
         #println(typeof(Roots[1]))
-        return (intersect=false, message="no real roots")
-    else
+    #    return (intersect=false, type="none")
+    #else
+    if isa(SymPy.N(Roots[1]), Real)
         for ti in Roots
             if 0.0 <= ti <= 1.0 + 1.0e-6  # check if intersection point is in line segment
                 Ipc = Point2D{Float64}(SymPy.subs(x, t, ti), SymPy.subs(y, t, ti))
@@ -20,17 +21,12 @@ function LineArc(line::Geometry, arc::Geometry)
                 Result = PointInSector(Ipc, arc)
                 if Result[1] # check if intersection point is in arc
                     dist2 = Result[2]
-                    return (intersect=true, Ip=Ipc, Dist1=dist1, Dist2=dist2)
+                    return (intersect=true, type="cross", Ip=Ipc, Dist1=dist1, Dist2=dist2) # only the first junction point is returned
                     #push!(Ips, (Ipc, Dist1, Dist2))
                 end
             end
         end
     end
 
-    return (intersect=false, message="no intersection")
-#    if size(Ips, 1) == 0
-#        return (false, "not inside")
-#    else
-#        return (true, Ips)
-#    end
+    return (intersect=false, type="none")
 end
