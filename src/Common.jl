@@ -33,9 +33,9 @@ function round(x::Float64, pre::Union{Float64, Int64}) # pre: precision
     n = floor(Int, x/pre)
     m = x - n*pre
     if m >= pre/2
-        return (n+1)*pre
+        return trunc((n+1)*pre; digits=10)
     else
-        return n*pre
+        return trunc(n*pre; digits=10)
     end
 end
 
@@ -47,7 +47,7 @@ struct Geometry
     GType::String
 end
 
-function Geometry(Sp::Point4D{Float64}, Ep::Point4D{Float64}, Vstd)
+function Geometry(Sp::Point4D{Float64}, Ep::Point4D{Float64}, Vstd::Float64)
     if Sp.cur == Ep.cur
         if Sp.cur != 0.0
             Length = round(abs((Sp.θ - Ep.θ)/Sp.cur), 1.0e-14)
@@ -62,7 +62,7 @@ function Geometry(Sp::Point4D{Float64}, Ep::Point4D{Float64}, Vstd)
     return Geometry(Sp, Ep, Length, Vstd, GType)
 end
 
-function Geometry(Sp::Point2D{Float64}, Ep::Point2D{Float64}, Vstd) # constructor for line element
+function Geometry(Sp::Point2D{Float64}, Ep::Point2D{Float64}, Vstd::Float64) # constructor for line element
     Length = round(Distance2D(Sp, Ep), 1.0e-14)
     Δx = Ep.x-Sp.x
     Δy = Ep.y-Sp.y
