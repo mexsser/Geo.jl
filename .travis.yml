@@ -16,7 +16,8 @@ notifications:
 before_install:
   - sudo apt-get update
   - sudo apt-get install python3-pip
-  - pip3 install --user sympy
+  - sudo -H pip3 install --upgrade pip
+  - sudo -H pip3 install sympy
 
 #install:
 
