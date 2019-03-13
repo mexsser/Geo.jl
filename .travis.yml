@@ -20,7 +20,7 @@ addons:
 before_install:
   - sudo apt-get update
   - curl https://bootstrap.pypa.io/get-pip.py | sudo -H python3.6
-  - sudo pip3 install sympy
+  - sudo -H pip3 install sympy
 
 #install:
 
