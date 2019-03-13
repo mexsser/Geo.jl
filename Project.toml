@@ -1,7 +1,7 @@
 name = "Geo"
 uuid = "f4cc4a8f-43a2-53c8-910f-478f0a262e24"
 authors = ["mexsser <mexsser@gmail.com>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 SymPy = "24249f21-da20-56a4-8eb1-6a02cf4ae2e6"
